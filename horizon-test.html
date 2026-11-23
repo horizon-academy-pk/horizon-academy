@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Horizon Academy Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --card2:#eef3f1; --ink:#16233b; --ink2:#4a5a75; --line:#dde4ec;
+    --green:#0e7c5b; --green-d:#0a5f45; --wa:#1fae55; --amber:#b97a0f; --amber-bg:#fdf3dd;
+    --red:#c0392b; --red-bg:#fdecea; --ok-bg:#e6f4ee; --blue:#1d4ed8; --navy:#12284b; --gold:#c9a227;
+    --shadow:0 1px 2px rgba(22,35,59,.06),0 8px 24px rgba(22,35,59,.06);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e141f; --card:#182234; --card2:#1d2a40; --ink:#eef2f8; --ink2:#a7b4c9; --line:#2b3a55;
+      --green:#2fbf8f; --green-d:#25a87a; --wa:#25c05e; --amber:#e0a83e; --amber-bg:#3a2f14;
+      --red:#ff8a7a; --red-bg:#3d1e1a; --ok-bg:#123528; --blue:#7aa5ff;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:880px;margin:0 auto;padding:16px 14px 110px}
+  h1,h2,h3{line-height:1.25;margin:0}
+  .serif{font-family:"Fraunces",Georgia,serif}
+  button,[role="button"],select,input:not([type="checkbox"]):not([type="radio"]),textarea{font:inherit}
+  button{min-height:48px}
+  input:not([type="radio"]),select,textarea{min-height:48px}
+
+  .hero{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;box-shadow:var(--shadow);text-align:center}
+  .hero img.logo{width:110px;height:110px;border-radius:16px;box-shadow:var(--shadow)}
+  .hero .kicker{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.08em;padding:5px 11px;border-radius:999px;text-transform:uppercase;margin-top:12px}
+  .hero h1{font-size:30px;font-weight:900;margin:12px 0 6px;letter-spacing:-.01em}
+  .hero p{color:var(--ink2);margin:0}
+  .hero .tagline{color:var(--gold);font-weight:800;letter-spacing:.14em;font-size:13px;margin-top:8px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+  .chip{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:13.5px;font-weight:600}
+  .chip b{color:var(--ink)}
+  .chip span{color:var(--ink2)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px;box-shadow:var(--shadow)}
+  .card h2{font-size:20px;font-weight:800}
+  .card .sub{color:var(--ink2);font-size:14px;margin-top:4px}
+  label.flabel{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+  .field{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:11px 13px}
+  .field:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--ok-bg)}
+  textarea.field{min-height:96px;resize:vertical;line-height:1.6}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font-weight:800;font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:active{background:var(--green-d)}
+  .btn-ghost{background:var(--card2);color:var(--ink);border:1.5px solid var(--line)}
+  .btn-block{width:100%}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+  /* Test area — copy protection zone */
+  .no-copy{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  .timerbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin-top:14px}
+  @media (prefers-color-scheme: dark){.timerbar{background:#060a12;border:1px solid var(--line)}}
+  .timerbar .t{font-variant-numeric:tabular-nums;font-weight:800;font-size:19px}
+  .timerbar .lbl{font-size:12.5px;opacity:.75;font-weight:600}
+  .progress{height:9px;background:var(--card2);border-radius:99px;overflow:hidden;margin-top:12px;border:1px solid var(--line)}
+  .progress > div{height:100%;background:var(--green);width:0%;transition:width .3s ease}
+  .progress-txt{font-size:13.5px;color:var(--ink2);font-weight:600;margin-top:6px}
+
+  .q{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:12px;background:var(--card)}
+  .q .qhead{display:flex;gap:10px;align-items:flex-start}
+  .q .qnum{flex:none;width:30px;height:30px;border-radius:9px;background:var(--card2);border:1px solid var(--line);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .q .qtext{font-weight:700;font-size:16.5px;padding-top:3px}
+  .q .mark{margin-left:auto;flex:none;font-size:12px;font-weight:700;color:var(--ink2);background:var(--card2);border-radius:99px;padding:3px 9px}
+  .opts{display:grid;grid-template-columns:1fr;gap:9px;margin-top:13px}
+  @media(min-width:640px){.opts{grid-template-columns:1fr 1fr}}
+  .opt{display:flex;align-items:center;gap:11px;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;cursor:pointer;min-height:52px;font-weight:600;background:var(--card)}
+  .opt:hover{border-color:var(--green)}
+  .opt input{width:21px;height:21px;accent-color:var(--green);flex:none;margin:0;min-height:0}
+  .opt.sel{border-color:var(--green);background:var(--ok-bg)}
+  .opt .ol{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--ink2);background:var(--card)}
+  .opt.sel .ol{background:var(--green);border-color:var(--green);color:#fff}
+  .short-a{margin-top:12px}
+  .hint{font-size:13px;color:var(--ink2);margin-top:6px}
+  .shield{background:var(--amber-bg);border:1px solid var(--amber);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:14px}
+  .shield b{color:var(--amber)}
+
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--card);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+  .stickybar .inner{max-width:880px;margin:0 auto;display:flex;gap:10px;align-items:center}
+  .stickybar .info{flex:1;font-size:13.5px;font-weight:700;color:var(--ink2);line-height:1.3}
+  .stickybar .info b{color:var(--ink);font-size:15px}
+
+  /* Result */
+  .scorebig{text-align:center;padding:8px 0 2px}
+  .scorebig .num{font-size:56px;font-weight:900;line-height:1}
+  .scorebig .of{color:var(--ink2);font-weight:700}
+  .review{margin-top:10px}
+  .review .r{display:flex;gap:10px;padding:11px 12px;border-radius:10px;margin-top:8px;font-size:14.5px;border:1px solid var(--line)}
+  .review .r.ok{background:var(--ok-bg);border-color:transparent}
+  .review .r.bad{background:var(--red-bg);border-color:transparent}
+  .review .ic{flex:none;font-weight:900}
+  .r.ok .ic{color:var(--green)} .r.bad .ic{color:var(--red)}
+  .review .ca{display:block;color:var(--ink2);font-size:13.5px;margin-top:2px}
+  .result-text{white-space:pre-wrap;word-break:break-word;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13.5px;max-height:300px;overflow:auto}
+  .err{background:var(--red-bg);border:1px solid var(--red);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:12px;display:none}
+  .okmsg{background:var(--ok-bg);border:1px solid var(--green);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:12px;display:none}
+
+  .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:96px;z-index:99;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14.5px;opacity:0;pointer-events:none;transition:all .25s ease;max-width:92vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  @media (prefers-color-scheme: dark){.toast{background:#f2f5fa;color:#10151f}}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .foot{margin-top:22px;color:var(--ink2);font-size:13.5px;text-align:center}
+  .hidden{display:none !important}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;scroll-behavior:auto !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= STUDENT VIEW ================= -->
+  <div id="studentView">
+    <div class="hero">
+      <img class="logo" src="https://horizon-academy-pk.github.io/horizon-academy/horizon-academy-logo.jpg" alt="Horizon Academy logo" />
+      <br/><span class="kicker">Horizon Academy</span>
+      <h1 class="serif" id="testTitle">Horizon Academy Test</h1>
+      <p id="testSub">Punjab Board (BISE) test — built from the board book, following the PECTAA Smart Syllabus (ALP) 2026–27. Read carefully and answer in your own words. Copy-paste is blocked — write what you know, that is how you learn.</p>
+      <div class="tagline">LEARN. TEST. SUCCEED.</div>
+      <div class="meta">
+        <div class="chip"><span>Subject: </span><b id="mSubject">Computer Science</b></div>
+        <div class="chip"><span>Class: </span><b id="mClass">—</b></div>
+        <div class="chip"><span>Date: </span><b id="mDate">—</b></div>
+        <div class="chip"><span>MCQs: </span><b>20 × 1 = 20 marks</b></div>
+        <div class="chip"><span>Short: </span><b id="mShort">5 × 2 = 10 marks</b></div>
+        <div class="chip"><span>Total: </span><b id="mTotal">30 marks</b></div>
+      </div>
+    </div>
+
+    <!-- Test code loader -->
+    <div class="card" id="codeCard" style="border-color:var(--green)">
+      <h2>🔑 Enter Your Test Code</h2>
+      <p class="sub">If your teacher sent you a long <b>Test Code</b>, paste it below to open the test. Or just open the test link your teacher sent — the test will open directly.</p>
+      <label class="flabel" for="codeIn">Paste your Test Code here</label>
+      <textarea class="field" id="codeIn" placeholder="Paste the long code here…" style="min-height:64px;font-size:12.5px"></textarea>
+      <button class="btn btn-green btn-block" id="loadCodeBtn" style="margin-top:10px">Open Test With Code</button>
+    </div>
+
+    <!-- Start gate -->
+    <div class="card" id="startCard">
+      <h2>Before you start the test</h2>
+      <p class="sub">Write your name and college name correctly — the result will be saved with this name and your college.</p>
+      <div>
+        <label class="flabel" for="stuName">Your name *</label>
+        <input class="field" id="stuName" type="text" placeholder="Example: Ahmed Ali" autocomplete="off" />
+      </div>
+      <div>
+        <label class="flabel" for="collegeName">College name *</label>
+        <input class="field" id="collegeName" type="text" placeholder="Example: Govt. College Lahore" autocomplete="off" />
+      </div>
+      <div class="chip" style="margin-top:14px"><span>Class: </span><b id="lockedClass">—</b></div>
+      <div class="shield">🛡️ <b>Copy-paste is blocked:</b> you cannot copy, paste, right-click or select text in the test questions — type short answers yourself. (Pasting is allowed in the Test Code box above, before the test starts.) <br/>Honestly, a screenshot or a second phone cannot be stopped by this page — this only blocks normal copy-paste.</div>
+      <button class="btn btn-green btn-block" id="startBtn" style="margin-top:14px">▶ Start Test — Timer Will Run</button>
+    </div>
+
+    <!-- Test body -->
+    <div id="testBody" class="hidden">
+      <div class="timerbar">
+        <div><div class="lbl">Student</div><div style="font-weight:800" id="tbName">—</div></div>
+        <div style="text-align:right"><div class="lbl">Time left (30 min)</div><div class="t" id="tbTimer">30:00</div></div>
+      </div>
+      <div class="progress"><div id="progFill"></div></div>
+      <div class="progress-txt" id="progTxt">0 / 25 questions answered</div>
+
+      <div class="no-copy" id="copyZone">
+        <div class="card" style="padding-top:6px">
+          <h2 style="margin-top:12px">Part A — MCQs <span style="color:var(--ink2);font-size:14px;font-weight:600">(1 mark each)</span></h2>
+          <p class="sub">Choose one correct answer for each question.</p>
+          <div id="mcqList"></div>
+        </div>
+
+        <div class="card" style="padding-top:6px">
+          <h2 style="margin-top:12px">Part B — Short Questions <span id="partBMarks" style="color:var(--ink2);font-size:14px;font-weight:600">(2 marks each)</span></h2>
+          <p class="sub">Write your answers in your own words. Pasting is blocked — type them yourself. These questions will be checked later.</p>
+          <div id="shortList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="resultCard" class="card hidden" style="border-color:var(--green)">
+      <h2>🎉 Test Submitted!</h2>
+      <div class="scorebig">
+        <div class="of">MCQ Score</div>
+        <div class="num"><span id="rScore">0</span><span class="of"> / 20</span></div>
+        <p class="sub" id="rMsg" style="margin-top:6px"></p>
+      </div>
+      <div class="review" id="rReview"></div>
+      <div id="sheetStatus" class="okmsg" style="display:block">⏳ Saving your result…</div>
+      <p class="sub" style="margin-top:14px"><b id="shortNoteMarks">Short questions (10 marks)</b> are still to be checked. <span id="sheetNote">The result is saved in the Google Sheet (<b>Punjab Test Results</b>) — from there the teacher will check the short questions and make the <b id="finalNoteTotal">final result / 30</b>.</span> If the save fails, your full result is shown below on this screen.</p>
+      <button class="btn btn-ghost btn-block" id="copyBtn" style="margin-top:10px">📋 Copy My Full Result</button>
+      <label class="flabel">Full result</label>
+      <div class="result-text" id="resultText"></div>
+    </div>
+  </div>
+
+  <p class="foot">Horizon Academy • Learn. Test. Succeed. • MCQs are checked automatically — short questions are checked by the teacher.</p>
+</div>
+
+<!-- Sticky submit bar -->
+<div class="stickybar hidden" id="submitBar">
+  <div class="inner">
+    <div class="info"><b id="sbCount">0 / 25</b><br/>questions answered</div>
+    <button class="btn btn-green" id="submitBtn" style="flex:none;padding-left:26px;padding-right:26px">✓ Submit</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+/* TODO: paste the Punjab Apps Script web app URL here when it is deployed.
+   Until then SHEET_URL stays empty and results are shown on screen only. */
+var SHEET_URL = "";
+var TIME_LIMIT = 30*60;
+
+/* ---------- State ---------- */
+var test = null;
+var started = false;
+var submitted = false;
+var timerInt = null;
+var timeLeft = TIME_LIMIT;
+var pasteAttempts = 0;
+var tabSwitches = 0;
+var lastResultText = "";
+var collegeName = "";
+
+/* ---------- Helpers ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+var toastTimer=null;
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove("show"); },2600);
+}
+function todayStr(){ var d=new Date(); return (d.getDate()<10?"0":"")+d.getDate()+"-"+((d.getMonth()+1)<10?"0":"")+(d.getMonth()+1)+"-"+d.getFullYear(); }
+function dec(code){
+  var b=code.replace(/-/g,"+").replace(/_/g,"/");
+  while(b.length%4) b+="=";
+  return JSON.parse(decodeURIComponent(escape(atob(b))));
+}
+var SM=2; /* marks per short question — from the test payload (sm), default 2 */
+function shortTotal(){ return (test&&test.sq?test.sq.length:5)*SM; }
+function grandTotal(){ return (test&&test.mcq?test.mcq.length:20)+shortTotal(); }
+function totalQuestions(){ return (test&&test.mcq?test.mcq.length:20)+(test&&test.sq?test.sq.length:5); }
+function applyMarks(){
+  SM=(test&&typeof test.sm==="number")?test.sm:2;
+  var st=shortTotal(), gt=grandTotal();
+  if($("mShort")) $("mShort").textContent=test.sq.length+" × "+SM+" = "+st+" marks";
+  if($("mTotal")) $("mTotal").textContent=gt+" marks";
+  if($("partBMarks")) $("partBMarks").textContent="("+SM+" marks each)";
+  if($("shortNoteMarks")) $("shortNoteMarks").textContent="Short questions ("+st+" marks)";
+  if($("finalNoteTotal")) $("finalNoteTotal").textContent="final result / "+gt;
+}
+function validTest(t){
+  return t && Array.isArray(t.mcq) && t.mcq.length===20 && Array.isArray(t.sq) && t.sq.length===5 &&
+    t.mcq.every(function(m){ return m && typeof m.q==="string" && Array.isArray(m.o) && m.o.length===4 && typeof m.a==="number"; });
+}
+
+/* ---------- Load test (from link hash, else code box) ---------- */
+function loadFromHash(){
+  var h=window.location.hash||"";
+  var m=h.match(/[#&]t=([A-Za-z0-9\-_]+)/);
+  if(m){
+    try{ var t=dec(m[1]); if(validTest(t)){ test=t; return true; } }catch(e){}
+  }
+  test=null;
+  return false;
+}
+
+/* ---------- Student render ---------- */
+function renderTestMeta(){
+  if(!test) return;
+  applyMarks();
+  $("testTitle").textContent=test.title||"Horizon Academy Test";
+  $("mSubject").textContent=test.subject||"Computer Science";
+  $("mClass").textContent=test.cls||"—";
+  $("mDate").textContent=test.date||todayStr();
+  $("lockedClass").textContent=test.cls||"—";
+}
+function renderQuestions(){
+  var letters=["A","B","C","D"];
+  var html="";
+  test.mcq.forEach(function(m,i){
+    html+='<div class="q"><div class="qhead"><div class="qnum">'+(i+1)+'</div><div class="qtext">'+esc(m.q)+'</div><div class="mark">1 mark</div></div><div class="opts">';
+    m.o.forEach(function(op,j){
+      html+='<label class="opt" data-mcq="'+i+'" data-opt="'+j+'"><input type="radio" name="mcq'+i+'" value="'+j+'"/><span class="ol">'+letters[j]+'</span><span>'+esc(op)+'</span></label>';
+    });
+    html+="</div></div>";
+  });
+  $("mcqList").innerHTML=html;
+  var sh="";
+  test.sq.forEach(function(q,i){
+    sh+='<div class="q"><div class="qhead"><div class="qnum">'+(i+1)+'</div><div class="qtext">'+esc(q)+'</div><div class="mark">'+SM+' marks</div></div>'+
+      '<textarea class="field short-a" id="sq'+i+'" placeholder="Type your answer here…" autocomplete="off"></textarea>'+
+      '<div class="hint"><span id="sqc'+i+'">0</span> characters • pasting is blocked, type it yourself</div></div>';
+  });
+  $("shortList").innerHTML=sh;
+
+  var radios=document.querySelectorAll('#mcqList input[type="radio"]');
+  Array.prototype.forEach.call(radios,function(r){
+    r.addEventListener("change",function(){
+      var labels=document.querySelectorAll('.opt[data-mcq="'+r.name.replace("mcq","")+'"]');
+      Array.prototype.forEach.call(labels,function(l){ l.classList.remove("sel"); });
+      r.closest(".opt").classList.add("sel");
+      updateProgress();
+    });
+  });
+  test.sq.forEach(function(_,i){
+    var ta=$("sq"+i);
+    ta.addEventListener("input",function(){ $("sqc"+i).textContent=ta.value.length; updateProgress(); });
+    ta.addEventListener("paste",function(e){ e.preventDefault(); pasteAttempts++; toast("🚫 Pasting is blocked — type your answer yourself!"); });
+    ta.addEventListener("drop",function(e){ e.preventDefault(); toast("🚫 Drag-drop is blocked — type it yourself!"); });
+  });
+}
+function countAnswered(){
+  var n=0,i, mc=(test&&test.mcq)?test.mcq.length:20, sq=(test&&test.sq)?test.sq.length:5;
+  for(i=0;i<mc;i++){ if(document.querySelector('input[name="mcq'+i+'"]:checked')) n++; }
+  for(i=0;i<sq;i++){ var ta=$("sq"+i); if(ta && ta.value.trim().length>0) n++; }
+  return n;
+}
+function updateProgress(){
+  var n=countAnswered(), tot=totalQuestions();
+  $("progFill").style.width=(n/tot*100)+"%";
+  $("progTxt").textContent=n+" / "+tot+" questions answered";
+  $("sbCount").textContent=n+" / "+tot;
+}
+
+/* ---------- Anti copy-paste ---------- */
+function armProtection(){
+  var zone=$("copyZone");
+  ["copy","cut","contextmenu"].forEach(function(ev){
+    zone.addEventListener(ev,function(e){ e.preventDefault(); if(ev!=="contextmenu"){ pasteAttempts++; toast("🚫 Copying is blocked!"); } });
+  });
+  document.addEventListener("keydown",function(e){
+    if(!started||submitted) return;
+    var k=(e.key||"").toLowerCase();
+    if((e.ctrlKey||e.metaKey)&&["c","v","x","u"].indexOf(k)>-1){
+      e.preventDefault(); pasteAttempts++;
+      toast(k==="v"?"🚫 Pasting is blocked — type your answer yourself!":"🚫 This shortcut is blocked in the test!");
+    }
+    if(e.key==="PrintScreen"){ toast("📸 A screenshot attempt has been noted."); }
+  });
+  document.addEventListener("visibilitychange",function(){
+    if(started&&!submitted&&document.hidden){ tabSwitches++; }
+  });
+}
+
+/* ---------- Timer ---------- */
+function fmt(s){ var m=Math.floor(s/60), r=s%60; return (m<10?"0":"")+m+":"+(r<10?"0":"")+r; }
+function startTimer(){
+  timeLeft=TIME_LIMIT;
+  $("tbTimer").textContent=fmt(timeLeft);
+  clearInterval(timerInt);
+  timerInt=setInterval(function(){
+    timeLeft--;
+    if(timeLeft<=0){ timeLeft=0; $("tbTimer").textContent="00:00"; clearInterval(timerInt); toast("⏰ Time is up! The test is submitting automatically."); doSubmit(true); return; }
+    $("tbTimer").textContent=fmt(timeLeft);
+    if(timeLeft===300) toast("⏰ Only 5 minutes left!");
+  },1000);
+}
+
+/* ---------- Start / Submit ---------- */
+function startTest(){
+  var name=$("stuName").value.trim();
+  if(!name){ toast("Please write your name first!"); $("stuName").focus(); return; }
+  var college=$("collegeName").value.trim();
+  if(!college){ toast("Please write your college name too!"); $("collegeName").focus(); return; }
+  collegeName=college;
+  started=true;
+  $("tbName").textContent=name;
+  $("codeCard").classList.add("hidden");
+  $("startCard").classList.add("hidden");
+  $("resultCard").classList.add("hidden");
+  $("testBody").classList.remove("hidden");
+  $("submitBar").classList.remove("hidden");
+  startTimer();
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+  toast("Test started! All the best 👍");
+}
+function doSubmit(auto){
+  if(submitted) return;
+  var name=$("stuName").value.trim();
+  if(!name){ toast("Your name is required."); return; }
+  var un=totalQuestions()-countAnswered();
+  if(!auto){
+    if(!window.__confirming){
+      window.__confirming=true;
+      toast(un>0 ? "⚠️ "+un+" questions are still empty — press Submit again if you are sure." : "Are you sure you want to submit? Press Submit again to confirm.");
+      setTimeout(function(){window.__confirming=false;},3500);
+      return;
+    }
+  }
+  submitted=true;
+  clearInterval(timerInt);
+  $("submitBar").classList.add("hidden");
+
+  var letters=["A","B","C","D"];
+  var className=(test&&test.cls)||"—";
+  var score=0, reviewHtml="", lines=[];
+  var mcqAnswers=[], shortAnswers=[];
+  lines.push("📝 HORIZON ACADEMY TEST RESULT");
+  lines.push("Name: "+name);
+  lines.push("College: "+collegeName);
+  lines.push("Class: "+className);
+  lines.push("Test: "+(test.title||"Horizon Academy Test"));
+  lines.push("Subject: "+(test.subject||"Computer Science"));
+  lines.push("Date: "+(test.date||todayStr()));
+  var used=TIME_LIMIT-timeLeft;
+  lines.push("Time taken: "+fmt(used));
+  lines.push("");
+  test.mcq.forEach(function(m,i){
+    var sel=document.querySelector('input[name="mcq'+i+'"]:checked');
+    var v=sel?parseInt(sel.value,10):-1;
+    var ok=(v===m.a); if(ok) score++;
+    var yourTxt=v>=0?(letters[v]+") "+m.o[v]):"(not answered)";
+    mcqAnswers.push(v>=0?m.o[v]:"");
+    var corrTxt=letters[m.a]+") "+m.o[m.a];
+    reviewHtml+='<div class="r '+(ok?"ok":"bad")+'"><div class="ic">'+(ok?"✓":"✗")+'</div><div><b>Q'+(i+1)+":</b> "+esc(m.q)+'<span class="ca">Your answer: '+esc(yourTxt)+(ok?"":" • Correct answer: "+esc(corrTxt))+"</span></div></div>";
+    lines.push("MCQ "+(i+1)+": "+(ok?"✓ Correct":"✗ Wrong")+" | Question: "+m.q+" | Answer: "+yourTxt+(ok?"":" | Correct: "+corrTxt));
+  });
+  lines.push("");
+  lines.push("MCQ SCORE: "+score+" / "+test.mcq.length);
+  lines.push("");
+  lines.push("--- SHORT QUESTIONS (for checking) ---");
+  test.sq.forEach(function(q,i){
+    var ans=($("sq"+i).value||"").trim();
+    shortAnswers.push(ans);
+    lines.push("");
+    lines.push("Question "+(i+1)+": "+q);
+    lines.push("Answer: "+(ans||"(left empty)"));
+  });
+  lines.push("");
+  lines.push("Short Questions: __ / "+shortTotal()+" (checking pending)");
+  lines.push("FINAL TOTAL: __ / "+grandTotal());
+  lines.push("");
+  lines.push("Note — Paste attempts: "+pasteAttempts+" times • Tab/app switches during the test: "+tabSwitches+" times");
+
+  lastResultText=lines.join("\n");
+  $("rScore").textContent=score;
+  $("rMsg").textContent= score>=16 ? "Excellent! The final result /"+grandTotal()+" will be ready after the short questions are checked." :
+                          score>=10 ? "Good! Read again the ones you got wrong. The final result will come after the short questions are checked." :
+                                     "No problem — mistakes are how we learn. The final result will come after the short questions are checked.";
+  $("rReview").innerHTML=reviewHtml;
+  $("resultText").textContent=lastResultText;
+  $("testBody").classList.add("hidden");
+  var rc=$("resultCard"); rc.classList.remove("hidden");
+  var statusEl=$("sheetStatus");
+
+  var payload={
+    name:name,
+    collegeName:collegeName,
+    className:className,
+    testTitle:(test.title||"Horizon Academy Test"),
+    mcqScore:score,
+    mcqTotal:test.mcq.length,
+    mcqAnswers:mcqAnswers,
+    shortAnswers:shortAnswers
+  };
+  if(!SHEET_URL){
+    statusEl.className="err"; statusEl.style.display="block";
+    statusEl.innerHTML="⚠️ <b>Auto-save to the Sheet is not set up yet.</b> Your full result is shown below on this screen — please use <b>“Copy My Full Result”</b> above (or take a screenshot) and send it to your teacher, so nothing is lost.<br/>MCQ Score: <b>"+score+" / "+test.mcq.length+"</b>";
+    toast("⚠️ Not auto-saved — copy your result from the screen.");
+  } else {
+    statusEl.className="okmsg"; statusEl.style.display="block";
+    statusEl.textContent="⏳ Saving your result to the Google Sheet…";
+    fetch(SHEET_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain"},
+      body:JSON.stringify(payload)
+    }).then(function(){
+      statusEl.className="okmsg"; statusEl.style.display="block";
+      statusEl.innerHTML="✅ <b>Result sent</b> — it should be saved in the “Punjab Test Results” Google Sheet.<br/>MCQ Score: <b>"+score+" / "+test.mcq.length+"</b> • Short questions are still to be checked; the final result /"+grandTotal()+" will be made from there.";
+      toast("✅ Result sent!");
+    }).catch(function(){
+      statusEl.className="err"; statusEl.style.display="block";
+      statusEl.innerHTML="⚠️ <b>The result could not be saved to the Sheet</b> (internet or server problem). Don't worry — your <b>full result is shown below on this screen</b>. Please use <b>“Copy My Full Result”</b> above (or take a screenshot), so nothing is lost.<br/>MCQ Score: <b>"+score+" / "+test.mcq.length+"</b>";
+      toast("⚠️ Not saved to the Sheet — copy your result from the screen.");
+    });
+  }
+  rc.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------- Copy result ---------- */
+function copyResult(){
+  var txt=lastResultText||$("resultText").textContent||"";
+  if(!txt){ toast("Nothing to copy yet."); return; }
+  function done(){ toast("✅ Result copied! Send it to your teacher."); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); });
+  } else { fallbackCopy(txt); done(); }
+}
+function fallbackCopy(txt){
+  var ta=document.createElement("textarea");
+  ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---------- Load from code ---------- */
+function resetAttempt(){
+  started=false; submitted=false; pasteAttempts=0; tabSwitches=0; clearInterval(timerInt);
+  $("testBody").classList.add("hidden"); $("resultCard").classList.add("hidden");
+  $("submitBar").classList.add("hidden"); $("startCard").classList.remove("hidden");
+  $("codeCard").classList.remove("hidden");
+}
+function loadFromCode(raw){
+  var s=(raw||"").replace(/\s+/g,"");
+  var m=s.match(/t=([A-Za-z0-9\-_]+)/);
+  if(m) s=m[1];
+  if(!s){ toast("Please paste the code first!"); return; }
+  try{
+    var t=dec(s);
+    if(!validTest(t)){ toast("❌ This code is not correct — copy the full code and paste it again."); return; }
+    test=t; renderTestMeta(); renderQuestions(); resetAttempt();
+    $("codeCard").classList.add("hidden");
+    toast("✅ Test is loaded — write your name and college, then start!");
+    $("startCard").scrollIntoView({behavior:"smooth",block:"start"});
+  }catch(e){ toast("❌ This code is not correct — copy the full code and paste it again."); }
+}
+
+/* ---------- Init ---------- */
+function init(){
+  var fromLink=loadFromHash();
+  armProtection();
+  if(fromLink){
+    renderTestMeta(); renderQuestions();
+    $("codeCard").classList.add("hidden");
+    toast("📩 Test loaded from the link — write your name and college, then start!");
+  } else {
+    $("startCard").classList.add("hidden");
+    $("testBody").classList.add("hidden");
+  }
+  $("loadCodeBtn").addEventListener("click",function(){ loadFromCode($("codeIn").value); });
+  $("startBtn").addEventListener("click",startTest);
+  $("submitBtn").addEventListener("click",function(){ doSubmit(false); });
+  $("copyBtn").addEventListener("click",copyResult);
+}
+document.addEventListener("DOMContentLoaded",init);
+})();
+</script>
+</body>
+</html>
