@@ -8,7 +8,7 @@
 <title>Horizon Academy Test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --bg:#f4f6f8; --card:#ffffff; --card2:#eef3f1; --ink:#16233b; --ink2:#4a5a75; --line:#dde4ec;
@@ -49,6 +49,7 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px;box-shadow:var(--shadow)}
   .card h2{font-size:20px;font-weight:800}
   .card .sub{color:var(--ink2);font-size:14px;margin-top:4px}
+  .ur{direction:rtl;text-align:center;font-family:"Noto Nastaliq Urdu",serif;line-height:1.9;color:var(--ink2);font-size:15px}
   label.flabel{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
   .field{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:11px 13px}
   .field:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--ok-bg)}
@@ -163,6 +164,10 @@
       <div class="chip" style="margin-top:14px"><span>Class: </span><b id="lockedClass">—</b></div>
       <div class="shield">🛡️ <b>Copy-paste is blocked:</b> you cannot copy, paste, right-click or select text in the test questions — type short answers yourself. (Pasting is allowed in the Test Code box above, before the test starts.) <br/>Honestly, a screenshot or a second phone cannot be stopped by this page — this only blocks normal copy-paste.</div>
       <button class="btn btn-green btn-block" id="startBtn" style="margin-top:14px">▶ Start Test — Timer Will Run</button>
+      <div id="regNoteStart" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line);text-align:center">
+        <p class="sub">📝 Agle tests ke liye register karein: <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">Register here</a> — Rs. 1000/month via JazzCash.</p>
+        <p class="ur">اگلے ٹیسٹوں کے لیے رجسٹر کریں — <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">یہاں رجسٹر کریں</a></p>
+      </div>
     </div>
 
     <!-- Registration gate (non-demo tests only) -->
@@ -175,7 +180,7 @@
       </div>
       <div class="err" id="gateErr" style="display:none"></div>
       <button class="btn btn-green btn-block" id="verifyCodeBtn" style="margin-top:14px">✓ Verify Code &amp; Continue</button>
-      <p class="sub" style="margin-top:12px">Not registered yet? <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">Register here</a> — fee Rs. 1000 via JazzCash, approval within 24 hours.</p>
+      <p class="sub" style="margin-top:12px">Not registered yet? <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">Register here</a> — fee Rs. 1000/month via JazzCash, approval within 24 hours.</p>
     </div>
 
     <!-- Test body -->
@@ -212,6 +217,10 @@
       </div>
       <div class="review" id="rReview"></div>
       <div id="sheetStatus" class="okmsg" style="display:block">⏳ Saving your result…</div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line);text-align:center">
+        <p class="sub">📝 Agle tests ke liye register karein: <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">Register here</a> — Rs. 1000/month via JazzCash.</p>
+        <p class="ur">اگلے ٹیسٹوں کے لیے رجسٹر کریں — <a href="https://horizon-academy-pk.github.io/horizon-academy/register.html">یہاں رجسٹر کریں</a></p>
+      </div>
     </div>
   </div>
 
@@ -403,9 +412,11 @@ function applyGate(){
     regCode="DEMO";
     gate.classList.add("hidden");
     $("startCard").classList.remove("hidden");
+    $("regNoteStart").classList.remove("hidden");
   } else {
     gate.classList.remove("hidden");
     $("startCard").classList.add("hidden");
+    $("regNoteStart").classList.add("hidden");
   }
 }
 function verifyCode(){
@@ -435,6 +446,7 @@ function verifyCode(){
         $("stuName").disabled=true; $("collegeName").disabled=true;
         $("gateCard").classList.add("hidden");
         $("startCard").classList.remove("hidden");
+        $("regNoteStart").classList.add("hidden");
         toast("✅ Code verified — welcome, "+(res.name||"")+"!");
       } else if(res.reason==="pending"){
         err.style.display="block"; err.textContent="Your registration is still pending approval (within 24 hours). Please wait for approval, then try again.";
