@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Horizon Academy — Student Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --card2:#eef3f1; --ink:#16233b; --ink2:#4a5a75; --line:#dde4ec;
+    --green:#0e7c5b; --green-d:#0a5f45; --amber:#b97a0f; --amber-bg:#fdf3dd;
+    --red:#c0392b; --red-bg:#fdecea; --ok-bg:#e6f4ee; --navy:#12284b; --gold:#c9a227;
+    --shadow:0 1px 2px rgba(22,35,59,.06),0 8px 24px rgba(22,35,59,.06);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e141f; --card:#182234; --card2:#1d2a40; --ink:#eef2f8; --ink2:#a7b4c9; --line:#2b3a55;
+      --green:#2fbf8f; --green-d:#25a87a; --amber:#e0a83e; --amber-bg:#3a2f14;
+      --red:#ff8a7a; --red-bg:#3d1e1a; --ok-bg:#123528;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:880px;margin:0 auto;padding:16px 14px 110px}
+  h1,h2{line-height:1.25;margin:0}
+  .serif{font-family:"Fraunces",Georgia,serif}
+  button,input,select{font:inherit}
+  button{min-height:48px}
+  input,select{min-height:48px}
+  .hero{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;box-shadow:var(--shadow);text-align:center}
+  .hero img.logo{width:110px;height:110px;border-radius:16px;box-shadow:var(--shadow)}
+  .hero .kicker{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.08em;padding:5px 11px;border-radius:999px;text-transform:uppercase;margin-top:12px}
+  .hero h1{font-size:30px;font-weight:900;margin:12px 0 6px;letter-spacing:-.01em}
+  .hero p{color:var(--ink2);margin:0}
+  .hero .tagline{color:var(--gold);font-weight:800;letter-spacing:.14em;font-size:13px;margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px;box-shadow:var(--shadow)}
+  .card h2{font-size:20px;font-weight:800}
+  .card .sub{color:var(--ink2);font-size:14px;margin-top:4px}
+  label.flabel{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+  .field{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:11px 13px}
+  .field:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--ok-bg)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font-weight:800;font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:active{background:var(--green-d)}
+  .btn-ghost{background:var(--card2);color:var(--ink);border:1.5px solid var(--line)}
+  .btn-block{width:100%}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .paybox{background:var(--amber-bg);border:1.5px solid var(--amber);border-radius:12px;padding:16px;margin-top:14px;text-align:center}
+  .paybox .num{font-size:30px;font-weight:900;letter-spacing:.02em;margin:6px 0 2px}
+  .paybox .who{font-weight:700}
+  .paybox .amt{font-size:19px;font-weight:800;margin-top:8px}
+  .steps{margin:12px 0 0;padding-left:20px;color:var(--ink2);font-size:14.5px}
+  .steps li{margin-top:6px}
+  .ur{direction:rtl;text-align:right;font-family:"Noto Nastaliq Urdu","Plus Jakarta Sans",serif;line-height:2;color:var(--ink2);font-size:15px}
+  .ur b{color:var(--ink)}
+  .err{background:var(--red-bg);border:1px solid var(--red);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:12px;display:none}
+  .okmsg{background:var(--ok-bg);border:1px solid var(--green);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:12px;display:none}
+  .codebig{text-align:center;padding:10px 0 4px}
+  .codebig .code{font-size:42px;font-weight:900;letter-spacing:.06em}
+  .codebig .of{color:var(--ink2);font-weight:700}
+  .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:96px;z-index:99;background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14.5px;opacity:0;pointer-events:none;transition:all .25s ease;max-width:92vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  @media (prefers-color-scheme: dark){.toast{background:#f2f5fa;color:#10151f}}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .foot{margin-top:22px;color:var(--ink2);font-size:13.5px;text-align:center}
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <img class="logo" src="https://horizon-academy-pk.github.io/horizon-academy/horizon-academy-logo.jpg" alt="Horizon Academy logo" />
+    <br/><span class="kicker">Horizon Academy</span>
+    <h1 class="serif">Student Registration</h1>
+    <p>Punjab Board (BISE) tests — register once, then take every test for your class.</p>
+    <div class="tagline">LEARN. TEST. SUCCEED.</div>
+  </div>
+
+  <!-- Payment instructions -->
+  <div class="card">
+    <h2>💳 Step 1 — Pay the fee (Rs. 1000)</h2>
+    <div class="ur">مرحلہ 1 — فیس ادا کریں (1000 روپے)</div>
+    <p class="sub">Monthly fee: <b>Rs. 1000 per student, per class</b> — Rs. 1000 every month. Pay from your JazzCash app to this number:</p>
+    <p class="ur">ماہانہ فیس: <b>فی طالب علم، فی کلاس 1000 روپے</b> — ہر مہینے 1000 روپے۔ اپنے JazzCash ایپ سے اس نمبر پر ادا کریں:</p>
+    <div class="paybox">
+      <div class="who">JazzCash — Shan Ali</div>
+      <div class="ur" style="text-align:center">جیز کیش — شان علی</div>
+      <div class="num" id="jazzNum">03042886262</div>
+      <div class="amt">Amount: Rs. 1000</div>
+      <div class="ur" style="text-align:center">رقم: 1000 روپے</div>
+      <button class="btn btn-ghost" id="copyNumBtn" style="margin-top:12px">📋 Copy JazzCash Number</button>
+      <div class="ur" style="text-align:center;margin-top:8px">جیز کیش نمبر کاپی کریں</div>
+    </div>
+    <ol class="steps">
+      <li>Open your JazzCash app → Send Money → enter <b>03042886262</b> → <b>Rs. 1000</b>.
+        <div class="ur">اپنا JazzCash ایپ کھولیں → Send Money → نمبر <b>03042886262</b> درج کریں → <b>1000 روپے</b>۔</div></li>
+      <li>After sending, JazzCash shows a <b>Transaction ID (TRX ID)</b> — copy it. You will paste it in the form below.
+        <div class="ur">بھیجنے کے بعد JazzCash ایک <b>Transaction ID (TRX ID)</b> دکھائے گا — اسے کاپی کر لیں۔ آپ اسے نیچے والے فارم میں لکھیں گے۔</div></li>
+      <li>Fill the form and submit. Your registration is approved after the payment is checked (within 24 hours).
+        <div class="ur">فارم بھریں اور جمع کروائیں۔ ادائیگی چیک ہونے کے بعد آپ کی رجسٹریشن منظور ہو جائے گی (24 گھنٹوں کے اندر)۔</div></li>
+    </ol>
+  </div>
+
+  <!-- Registration form -->
+  <div class="card" id="formCard">
+    <h2>📝 Step 2 — Register</h2>
+    <p class="sub">Write your details correctly — your test will open with this name and college.</p>
+    <div>
+      <label class="flabel" for="regName">Your full name *</label>
+      <input class="field" id="regName" type="text" placeholder="Example: Ahmed Ali" autocomplete="off" />
+    </div>
+    <div>
+      <label class="flabel" for="regFather">Father's name *</label>
+      <input class="field" id="regFather" type="text" placeholder="Example: Muhammad Ali" autocomplete="off" />
+    </div>
+    <div>
+      <label class="flabel" for="regCollege">College name *</label>
+      <input class="field" id="regCollege" type="text" placeholder="Example: Govt. College Lahore" autocomplete="off" />
+    </div>
+    <div>
+      <label class="flabel" for="regClass">Class *</label>
+      <select class="field" id="regClass">
+        <option value="">— Select your class —</option>
+        <option value="11th">11th (1st Year)</option>
+        <option value="12th">12th (2nd Year)</option>
+      </select>
+    </div>
+    <div>
+      <label class="flabel" for="regWhatsapp">WhatsApp / mobile number *</label>
+      <div class="ur">واٹس ایپ / موبائل نمبر *</div>
+      <input class="field" id="regWhatsapp" type="tel" placeholder="Example: 03001234567" autocomplete="off" />
+    </div>
+    <div>
+      <label class="flabel" for="regJazzSender">Your JazzCash number (the one you paid from) *</label>
+      <div class="ur">آپ کا JazzCash نمبر (جس نمبر سے آپ نے ادائیگی کی) *</div>
+      <input class="field" id="regJazzSender" type="tel" placeholder="Example: 03001234567" autocomplete="off" />
+    </div>
+    <div>
+      <label class="flabel" for="regTrx">JazzCash Transaction ID (TRX ID) *</label>
+      <input class="field" id="regTrx" type="text" placeholder="Paste the TRX ID from JazzCash" autocomplete="off" style="text-transform:uppercase" />
+      <p class="sub">One TRX ID works for one registration only. Check the ID carefully before submitting.</p>
+    </div>
+    <div class="err" id="errBox"></div>
+    <button class="btn btn-green btn-block" id="regBtn" style="margin-top:14px">✓ Submit Registration</button>
+  </div>
+
+  <!-- Success -->
+  <div class="card hidden" id="doneCard" style="border-color:var(--green)">
+    <h2>🎉 Registration Received!</h2>
+    <div class="codebig">
+      <div class="of">Your Registration Code</div>
+      <div class="code" id="doneCode">—</div>
+      <p class="sub" style="margin-top:6px">Save this code — you need it to open every test. Take a screenshot of this screen.</p>
+    </div>
+    <div class="okmsg" id="doneMsg" style="display:block"></div>
+    <button class="btn btn-ghost btn-block" id="copyCodeBtn" style="margin-top:10px">📋 Copy My Registration Code</button>
+  </div>
+
+  <p class="foot">Horizon Academy • Learn. Test. Succeed. • Only registered students can take the tests (today's demo tests are open to everyone).</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyfSe8_s5Ei167S4yB_BoOos6fiN6se7wjflO-RzV1bFuPFNIL58LPxIlayHB539TE/exec";
+var REGISTER_URL = "https://horizon-academy-pk.github.io/horizon-academy/register.html";
+
+function $(id){ return document.getElementById(id); }
+var toastTimer=null;
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove("show"); },2600);
+}
+function showErr(msg){
+  var e=$("errBox"); e.style.display="block"; e.innerHTML=msg;
+  e.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function hideErr(){ $("errBox").style.display="none"; }
+function genCode(){
+  var chars="23456789ABCDEFGHJKMNPQRSTUVWXYZ", out="";
+  var buf=new Uint32Array(6);
+  if(window.crypto && window.crypto.getRandomValues){ window.crypto.getRandomValues(buf); }
+  else { for(var k=0;k<6;k++) buf[k]=Math.floor(Math.random()*4294967296); }
+  for(var i=0;i<6;i++) out+=chars[buf[i]%chars.length];
+  return "HA-"+out;
+}
+function copyText(txt, okMsg){
+  function done(){ toast(okMsg); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); });
+  } else { fallbackCopy(txt); done(); }
+}
+function fallbackCopy(txt){
+  var ta=document.createElement("textarea");
+  ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+function checkCode(code){
+  return fetch(SHEET_URL+"?action=check&code="+encodeURIComponent(code))
+    .then(function(r){ return r.json(); })
+    .catch(function(){ return null; });
+}
+function sleep(ms){ return new Promise(function(res){ setTimeout(res, ms); }); }
+
+async function submitReg(){
+  hideErr();
+  var name=$("regName").value.trim();
+  var father=$("regFather").value.trim();
+  var college=$("regCollege").value.trim();
+  var cls=$("regClass").value;
+  var whatsapp=$("regWhatsapp").value.trim();
+  var jazzSender=$("regJazzSender").value.trim();
+  var trx=$("regTrx").value.trim().toUpperCase();
+  if(!name){ showErr("Please write your full name."); $("regName").focus(); return; }
+  if(!father){ showErr("Please write your father's name."); $("regFather").focus(); return; }
+  if(!college){ showErr("Please write your college name."); $("regCollege").focus(); return; }
+  if(!cls){ showErr("Please select your class (11th or 12th)."); $("regClass").focus(); return; }
+  if(!whatsapp){ showErr("Please write your WhatsApp / mobile number."); $("regWhatsapp").focus(); return; }
+  if(!jazzSender){ showErr("Please write the JazzCash number you paid from."); $("regJazzSender").focus(); return; }
+  if(!trx || trx.length<6){ showErr("Please paste the full JazzCash Transaction ID (TRX ID)."); $("regTrx").focus(); return; }
+
+  var btn=$("regBtn");
+  btn.disabled=true; btn.textContent="⏳ Saving your registration…";
+  var code=genCode();
+  var payload={
+    action:"register",
+    regCode:code,
+    name:name,
+    fatherName:father,
+    collegeName:college,
+    className:cls,
+    whatsapp:whatsapp,
+    jazzSender:jazzSender,
+    trxId:trx,
+    amount:1000
+  };
+  try{
+    await fetch(SHEET_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain"},
+      body:JSON.stringify(payload)
+    });
+  }catch(e){
+    btn.disabled=false; btn.textContent="✓ Submit Registration";
+    showErr("⚠️ <b>Could not send your registration</b> (internet problem). Please check your internet and try again.");
+    return;
+  }
+  /* Confirm the save: the code should now read back as Pending. */
+  var confirmed=false, tries=0;
+  while(tries<5){
+    await sleep(2000);
+    var res=await checkCode(code);
+    if(res && res.ok && res.approved===false && res.reason==="pending"){ confirmed=true; break; }
+    if(res && res.ok && res.approved===true){ confirmed=true; break; }
+    tries++;
+  }
+  if(!confirmed){
+    btn.disabled=false; btn.textContent="✓ Submit Registration";
+    showErr("⚠️ <b>Could not confirm your registration.</b> It may already be saved under a code shown earlier, or this TRX ID may already be registered. If you already have a Registration Code, use it to open the test. Otherwise check the TRX ID and try again — and keep your JazzCash payment proof.");
+    return;
+  }
+  $("formCard").classList.add("hidden");
+  $("doneCode").textContent=code;
+  $("doneMsg").innerHTML="✅ <b>Registration received for "+name+" ("+cls+").</b><br/>Your payment (Rs. 1000 for this month, TRX ID "+trx+") will be checked and approved within 24 hours. After approval, open any test link and enter this code. Fee is Rs. 1000 every month — pay again next month to keep taking tests. If approval takes longer, contact Horizon Academy with your code and TRX ID.";
+  $("doneCard").classList.remove("hidden");
+  $("doneCard").scrollIntoView({behavior:"smooth",block:"start"});
+  toast("✅ Registration received!");
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  $("regBtn").addEventListener("click",submitReg);
+  $("copyNumBtn").addEventListener("click",function(){ copyText("03042886262","✅ JazzCash number copied!"); });
+  $("copyCodeBtn").addEventListener("click",function(){ copyText($("doneCode").textContent,"✅ Registration code copied!"); });
+});
+})();
+</script>
+</body>
+</html>
